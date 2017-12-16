@@ -1,15 +1,27 @@
-#' Data Project: How could social media news influence the stock returns?
+#' API Data Sample from NY Times Archive API
 #'
-#' The fluctuation in the stock market can be reflected and predicted through the most updated news.
-#' This project takes news data as an illustration. Specifically, our goal is to find a method
-#' to collect and combine both sturctured (numerical) data from Yahoo Finance and unsturctured (text)
-#' data from NY Times together by web scraping data from APIs and further text cleaning.
-#'
+#' This is a sample dataset that collects all the news from 01/01/2000 to 01/31/2000. Within these two months, 
+#' there are 15,282 news reported on NY Times.
+#' 
 #' @format A sample news data of all news on NY Times from 2000-01-01 to 2000-01-31.
 #' \describe{
 #'   \item{pub_date}{publication date}
-#'
-#' @source \url{http://www.diamondse.info/}
-#' DF
+#'   \item{headline}{the headline of each article}
+#'   \item{word_count}{number of words in each article}
+#'   \item{type}{type of the material}
+#'   \item{web_url}{web link of each article}
+#' @source \url{https://developer.nytimes.com/archive_api.json}
+"api_data_sample"
 
-# DF
+
+
+#' Desired data sample after text cleaning
+#'
+#' This is a sample dataset that collects all the headlines of each news from 01/01/2000 to 01/31/2000. 
+#' Different from the previous api dataset, after text cleaning and transformation, the data is now ready
+#' for feature engineering - with 60 observations representing 60 days from 01/01/2000 to 01/31/2000, and 
+#' 8874 unique words (features) that appears on all the news headlines from NY times.
+#' 
+#' @format frequency of words appear on NY Times news for each day between 01/01/2000 and 01/31/2000.
+#' @source \url{https://developer.nytimes.com/archive_api.json}
+"cleaned_data_sample"

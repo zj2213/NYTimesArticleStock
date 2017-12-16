@@ -47,6 +47,7 @@ In this example, it takes about 5 minutes to collect all articles for 2 months f
 urls <- makeURL(begin_year = 2000, begin_month = 1, end_year = 2000, end_month = 2)
 DF <- getDF(urls, Sys.getenv("NYTIMES_AS_KEY"))
 # saveRDS(DF, "DF.rds")
+api_data_sample <- DF
 ```
 
 ## A glimpse of our scrapped dataset
@@ -81,21 +82,23 @@ filtered$pub_date <- as.Date(filtered$pub_date)
 ```{r}
 sotu_df <- filtered
 sotu_clean <- string_cleaning(sotu_df$headline)
+
+# Convert to corpus
 sotu_corpus <- VCorpus(DataframeSource(cbind(sotu_df$pub_date,
                                              sotu_clean)))
+
+# Stem words
 sotu_stemmed <- tm_map(sotu_corpus, stemDocument, lazy = TRUE)
 
-
-sotu_tdm <- TermDocumentMatrix(sotu_stemmed)
-# Remove sparsity
+# Generate TF-IDF matrix
+sotu_tdm <- TermDocumentMatrix(sotu_stemmed
+                               )
 # Remove sparsity
 sotu_m <- as.matrix(sotu_tdm) # Convert TDM to a matrix
 mat <- as.data.frame(t(sotu_m[-c(1:60),]))
 
-data <- cbind(sotu_df$pub_date, mat)
-names(data)[1]<-"pub_date"
-
-
+final_data_sample <- cbind(sotu_df$pub_date, mat)
+names(final_data_sample)[1]<-"pub_date"
 ```
 
 ## References
