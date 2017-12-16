@@ -9,8 +9,8 @@
 #' @param urls The URLs that generated from "makeURL" function
 #' @param key Your New York Times API AS KEY
 #' @examples
-URLs <- makeURL(2000, 1, 2000, 2)
-getDF(URLs, key = Sys.getenv("NYTIMES_AS_KEY"))
+#' URLs <- makeURL(2000, 1, 2000, 2)
+#' getDF(URLs, key = Sys.getenv("NYTIMES_AS_KEY"))
 
 # Set your API key
 # key <- Sys.getenv("NYTIMES_AS_KEY")

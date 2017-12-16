@@ -11,7 +11,7 @@
 #' @param end_year The ending year of article data collections
 #' @param end_month The ending month of article data collections
 #' @examples
-makeURL(2000, 1, 2006, 3)
+#' makeURL(2000, 1, 2006, 3)
 
 # Generate NY Time's Archive API base urls
 
