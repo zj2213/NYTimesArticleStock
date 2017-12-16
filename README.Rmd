@@ -94,6 +94,8 @@ mat <- as.data.frame(t(sotu_m[-c(1:60),]))
 
 data <- cbind(sotu_df$pub_date, mat)
 names(data)[1]<-"pub_date"
+
+
 ```
 
 ## References
