@@ -6,42 +6,11 @@
 #' data from NY Times together by web scraping data from APIs and further text cleaning.
 #'
 #' @export
-#' @param key Your New York Times API AS KEY
-#' @begin_year The starting year of article data collections
-#' @begin_month The starting month of article data collections
-#' @end_year The ending year of article data collections
-#' @end_month The ending month of article data collections
-#' @examples
-#' makeURL()
-#' getDF(make(URL))
 
-
-if (!require("pacman")) install.packages("pacman")
-pacman::p_load("httr", "dplyr", "tm", "tidytext", "DT")
 
 # Set your API key
 
 key <- Sys.getenv("NYTIMES_AS_KEY")
-
-# Generate NY Time's Archive API base urls
-
-makeURL <- function(begin_year, begin_month, end_year, end_month){
-  base_url <- "https://api.nytimes.com/svc/archive/v1/"
-  out <- c()
-  for(i in (end_year - begin_year)*12 + (end_month - begin_month)){
-    for(yr in begin_year:end_year){
-      for(mo in begin_month:end_month){
-        if(mo <= 12){
-          url_new <- paste0(base_url, yr, '/', mo, '.json')
-          out <- c(out, url_new)
-        }
-        mo = mo + 1
-      }
-      if(yr < end_year) yr = yr + 1
-    }
-  }
-  return(out)
-}
 
 # Get data frame from NY Time's Archive API
 # Note:
@@ -69,11 +38,4 @@ getDF <- function (urls, key){
   return(DF)
 }
 
-# Examples - it may take longer time to collect more data through longer periods.
-# In this example, it takes about 5 minutes to collect all articles for 2 months from NY Times (from 2000-1 to 2000-2).
-
-urls <- makeURL(begin_year = 2000, begin_month = 1, end_year = 2000, end_month = 2)
-DF <- getDF(urls, key)
-
-# saveRDS(DF, "DF.rds")
 

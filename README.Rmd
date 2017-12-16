@@ -25,16 +25,76 @@ You can install NYTimesArticleStock from github with:
 devtools::install_github("zj2213/NYTimesArticleStock")
 ```
 
-## Load the package
+## Load the required packages
 
 ```{r example}
 library(NYTimesArticleStock)
+
+if (!require("pacman")) install.packages("pacman")
+pacman::p_load("httr", "dplyr", "tm", "tidytext", "DT")
 ```
 
 To start with, you may required to register for a developer account on NY Times Api (see https://developer.nytimes.com/) and obtain an API key.
 
 **key = [your API AS KEY]**
 
+## Scrap text data from NY Times
+
+***Examples - it may take longer time to collect more data through longer periods.***
+In this example, it takes about 5 minutes to collect all articles for 2 months from NY Times (from 2000-1 to 2000-2).
+
+```{r}
+urls <- makeURL(begin_year = 2000, begin_month = 1, end_year = 2000, end_month = 2)
+DF <- getDF(urls, key)
+# saveRDS(DF, "DF.rds")
+```
+
+## A glimpse of our scrapped dataset
+
+```{r}
+datatable(DF[1:5,])
+```
+
+## Some summary statistics about the data
+
+```{r}
+DF %>%
+  select(pub_date, headline, type) %>%
+  group_by(type) %>%
+  count(sort = TRUE) %>%
+  head(10)
+```
+
+## Grouping text by "NEWS" and date
+
+```{r}
+filtered <- DF %>%
+  select(pub_date, headline, type) %>%
+  filter(type == "News") %>%
+  group_by(pub_date) %>%
+  summarise(headline = paste(headline, collapse = " "))
+filtered$pub_date <- as.Date(filtered$pub_date)
+```
+
+## Text Cleaning
+
+```{r}
+sotu_df <- filtered
+sotu_clean <- string_cleaning(sotu_df$headline)
+sotu_corpus <- VCorpus(DataframeSource(cbind(sotu_df$pub_date,
+                                             sotu_clean)))
+sotu_stemmed <- tm_map(sotu_corpus, stemDocument, lazy = TRUE)
+
+
+sotu_tdm <- TermDocumentMatrix(sotu_stemmed)
+# Remove sparsity
+# Remove sparsity
+sotu_m <- as.matrix(sotu_tdm) # Convert TDM to a matrix
+mat <- as.data.frame(t(sotu_m[-c(1:60),]))
+
+data <- cbind(sotu_df$pub_date, mat)
+names(data)[1]<-"pub_date"
+```
 
 ## References
 
