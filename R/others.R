@@ -101,4 +101,5 @@ data <- cbind(sotu_df$pub_date, mat)
 names(data)[1]<-"pub_date"
 
 
+devtools::install_github("zj2213/NYTimesArticleStock")
 
