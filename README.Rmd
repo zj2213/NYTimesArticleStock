@@ -45,7 +45,7 @@ In this example, it takes about 5 minutes to collect all articles for 2 months f
 
 ```{r}
 urls <- makeURL(begin_year = 2000, begin_month = 1, end_year = 2000, end_month = 2)
-DF <- getDF(urls, key)
+DF <- getDF(urls, Sys.getenv("NYTIMES_AS_KEY"))
 # saveRDS(DF, "DF.rds")
 ```
 
