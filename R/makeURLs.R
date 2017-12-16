@@ -6,13 +6,12 @@
 #' data from NY Times together by web scraping data from APIs and further text cleaning.
 #'
 #' @export
-#' @param key Your New York Times API AS KEY
-#' @begin_year The starting year of article data collections
-#' @begin_month The starting month of article data collections
-#' @end_year The ending year of article data collections
-#' @end_month The ending month of article data collections
+#' @param begin_year The starting year of article data collections
+#' @param begin_month The starting month of article data collections
+#' @param end_year The ending year of article data collections
+#' @param end_month The ending month of article data collections
 #' @examples
-#' makeURL(2000, 1, 2003, 10)
+makeURL(2000, 1, 2006, 3)
 
 # Generate NY Time's Archive API base urls
 
@@ -33,3 +32,5 @@ makeURL <- function(begin_year, begin_month, end_year, end_month){
   }
   return(out)
 }
+
+

@@ -1,3 +1,13 @@
+#' Data Project: How could social media news influence the stock returns?
+#'
+#' The fluctuation in the stock market can be reflected and predicted through the most updated news.
+#' This project takes news data as an illustration. Specifically, our goal is to find a method
+#' to collect and combine both sturctured (numerical) data from Yahoo Finance and unsturctured (text)
+#' data from NY Times together by web scraping data from APIs and further text cleaning.
+#'
+#' @export
+#' @param string_text The raw string text received from NY Times
+
 # Text cleanning
 # Define extra stop words
 STOP_WORDS = c("ax","i","you","edu","s","t","m","subject","can","lines","re","what","low",

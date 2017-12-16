@@ -6,18 +6,21 @@
 #' data from NY Times together by web scraping data from APIs and further text cleaning.
 #'
 #' @export
-
+#' @param urls The URLs that generated from "makeURL" function
+#' @param key Your New York Times API AS KEY
+#' @examples
+URLs <- makeURL(2000, 1, 2000, 2)
+getDF(URLs, key = Sys.getenv("NYTIMES_AS_KEY"))
 
 # Set your API key
-
-key <- Sys.getenv("NYTIMES_AS_KEY")
+# key <- Sys.getenv("NYTIMES_AS_KEY")
 
 # Get data frame from NY Time's Archive API
 # Note:
 # Due to the high volumn of news data, the following function only collects
 # headline, publication date, word count, web URL, and the type of each article published on NY Times.
 
-getDF <- function (urls, key){
+getDF <- function (urls, key = Sys.getenv("NYTIMES_AS_KEY")){
   DF <- as.data.frame(c())
   for (j in 1:length(urls)) {
     req <- GET(urls[[j]], query = list(api_key = key))
