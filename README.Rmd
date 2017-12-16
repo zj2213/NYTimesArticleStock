@@ -102,6 +102,13 @@ final_data_sample <- cbind(sotu_df$pub_date, mat)
 names(final_data_sample)[1]<-"pub_date"
 ```
 
+## Check Datasets
+
+```{r}
+head(api_data_sample)
+head(final_data_sample)
+```
+
 ## References
 
 https://developer.nytimes.com/archive_api.json
